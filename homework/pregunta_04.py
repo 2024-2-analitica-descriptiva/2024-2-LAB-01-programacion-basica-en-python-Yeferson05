@@ -4,7 +4,7 @@ datos requeridos se encuentran en el archivo data.csv. En este laboratorio
 solo puede utilizar las funciones y librerias basicas de python. No puede
 utilizar pandas, numpy o scipy.
 """
-
+import fileinput
 
 def pregunta_04():
     """
@@ -26,3 +26,34 @@ def pregunta_04():
      ('12', 3)]
 
     """
+
+    input_file = "files/input/data.csv"  
+    sequence = []
+
+   
+    with fileinput.input(files=[input_file]) as f:
+        for line in f:
+            sequence.append(line.strip().split('\t'))  
+    
+    counts = {}
+    for row in sequence:
+        date = row[2]  
+        try:
+            month = date.split('-')[1]  
+            counts[month] = counts.get(month, 0) + 1
+        except IndexError:
+            raise Exception(f"Error procesando la fila: {row}")
+         
+    result = sorted(counts.items())
+    return result
+
+#
+# Escriba la función job, la cual orquesta las funciones anteriores.
+#
+def run_job():
+    """Job"""
+    result = pregunta_04() 
+    print(result)
+
+if __name__ == "__main__":
+    run_job()

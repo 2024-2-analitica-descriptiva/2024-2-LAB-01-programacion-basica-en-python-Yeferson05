@@ -4,6 +4,7 @@ datos requeridos se encuentran en el archivo data.csv. En este laboratorio
 solo puede utilizar las funciones y librerias basicas de python. No puede
 utilizar pandas, numpy o scipy.
 """
+import fileinput
 
 
 def pregunta_06():
@@ -26,3 +27,41 @@ def pregunta_06():
      ('jjj', 5, 17)]
 
     """
+    input_file = "files/input/data.csv"  
+    sequence = []
+
+   
+    with fileinput.input(files=[input_file]) as f:
+        for line in f:
+            sequence.append(line.strip().split('\t'))  
+
+    
+    data = {}
+    for row in sequence:
+        column_5 = row[4]  
+        pairs = column_5.split(",")  
+        for pair in pairs:
+            key, value = pair.split(":") 
+            value = int(value) 
+            if key not in data:
+                data[key] = []  
+            data[key].append(value)
+             
+    result = []
+    for key in sorted(data.keys()): 
+        min_val = min(data[key])
+        max_val = max(data[key])
+        result.append((key, min_val, max_val))
+
+    return result
+
+#
+# Escriba la función job, la cual orquesta las funciones anteriores.
+#
+def run_job():
+    """Job"""
+    result = pregunta_06()  
+    print(result)
+
+if __name__ == "__main__":
+    run_job()

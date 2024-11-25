@@ -16,25 +16,25 @@ def pregunta_03():
 
     """
 
-    input_file = "files/input/data.csv"  # Ruta del archivo
+    input_file = "files/input/data.csv"  
     sequence = []
 
-    # Cargar los datos directamente en la función pregunta_03
+    
     with fileinput.input(files=[input_file]) as f:
         for line in f:
-            sequence.append(line.strip().split('\t'))  # Separar por tabulaciones
+            sequence.append(line.strip().split('\t'))  
 
-    # Sumar la columna 2 por cada letra de la primera columna
+    
     sums = {}
     for row in sequence:
-        letter = row[0]  # Primera columna (letra)
+        letter = row[0]  
         try:
-            value = int(row[1])  # Segunda columna (valor)
+            value = int(row[1])  
             sums[letter] = sums.get(letter, 0) + value
         except ValueError:
             raise Exception(f"Error procesando la fila: {row}")
 
-    # Convertir a lista de tuplas ordenadas alfabéticamente
+    
     result = sorted(sums.items())
     return result
 
@@ -43,7 +43,7 @@ def pregunta_03():
 #
 def run_job():
     """Job"""
-    result = pregunta_03()  # Llamar a pregunta_03 sin pasarle argumentos
+    result = pregunta_03()  
     print(result)
 
 if __name__ == "__main__":

@@ -8,27 +8,29 @@ import fileinput
 
 
 def pregunta_02():
-    input_file = "files/input/data.csv"  # Ruta del archivo
+    input_file = "files/input/data.csv"  
     sequence = []
 
-    # Cargar los datos directamente en la función pregunta_02
+    
     with fileinput.input(files=[input_file]) as f:
         for line in f:
-            sequence.append(line.strip().split('\t'))  # Separar por tabulaciones
+            sequence.append(line.strip().split('\t')) 
 
-    # Contar la cantidad de registros por letra de la primera columna
+   
     counts = {}
     for row in sequence:
-        letter = row[0]  # Primera columna (letra)
+        letter = row[0]  
         counts[letter] = counts.get(letter, 0) + 1
 
-    # Convertir a lista de tuplas ordenadas alfabéticamente
+    
     result = sorted(counts.items())
     return result
-
+#
+# Escriba la función job, la cual orquesta las funciones anteriores.
+#
 def run_job():
     """Job"""
-    result = pregunta_02()  # Llamar a pregunta_02 sin pasarle argumentos
+    result = pregunta_02()  
     print(result)
 
 if __name__ == "__main__":

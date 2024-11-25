@@ -5,6 +5,7 @@ solo puede utilizar las funciones y librerias basicas de python. No puede
 utilizar pandas, numpy o scipy.
 """
 
+import fileinput
 
 def pregunta_08():
     """
@@ -27,3 +28,32 @@ def pregunta_08():
      (9, ['A', 'B', 'C', 'E'])]
 
     """
+    input_file = "files/input/data.csv"  
+    sequence = []
+
+    with fileinput.input(files=[input_file]) as f:
+        for line in f:
+            sequence.append(line.strip().split('\t'))  
+
+    data = {}
+    for row in sequence:
+        value_col2 = int(row[1])  
+        letter_col1 = row[0]  
+        if value_col2 not in data:
+            data[value_col2] = set() 
+        data[value_col2].add(letter_col1)
+
+    result = sorted((key, sorted(data[key])) for key in data)
+
+    return result
+
+#
+# Escriba la función job, la cual orquesta las funciones anteriores.
+#
+def run_job():
+    """Job"""
+    result = pregunta_08()
+    print(result)
+
+if __name__ == "__main__":
+    run_job()
